@@ -1,5 +1,5 @@
 ## Project architecture
-
+full-stack CRUD app with Angular → NestJS → MongoDB
 ```
 my-app/
 │
@@ -53,6 +53,25 @@ Your NestJS API will be available at:
 
 connect to MongoDB Atlas, and create a simple CRUD API for, say, users.
 
+Create a CRUD module
+
+```
+nest g resource items
+```
+
+create .env file
+
+MONGODB_URI= connection_string from mongodb atlas
+
+```
+npm install @nestjs/config
+```
+
+POSTMAN or bruno API testing
+
+http://localhost:3000/items
+
+
 inside frontend:
 
 If you prefer to use the traditional NgModules structure, add the --no-standalone flag:
@@ -60,3 +79,18 @@ If you prefer to use the traditional NgModules structure, add the --no-standalon
 npx @angular/cli@17 new front-end --no-standalone
 
 ng new front-end --no-standalone
+
+ng generate environments
+
+ng generate environments --development --staging
+
+Data Engineer
+
+Data warehouse (structured)
+
+Date Lake (unstructured)
+
+Data Analyst
+
+Data Scientist
+
