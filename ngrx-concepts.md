@@ -59,3 +59,10 @@ ng generate module products --route products --module app.module
 }
 ```
 Double-check imports are correct and no circular dependencies exist.
+
+Angular doesn't allow async pipes in action expressions (event handlers)
+
+Async pipes can only be used in template interpolations and property bindings
+
+The parser was expecting method calls, not pipe expressions
+Solution
