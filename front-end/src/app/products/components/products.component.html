@@ -1,10 +1,50 @@
- <div *ngIf="facade.loading$ | async">Loading...</div>
-    <div *ngIf="facade.error$ | async as error">{{ error }}</div>
+<div class="controls">
+  <input placeholder="Search" [(ngModel)]="q" />
+  <input placeholder="Category" [(ngModel)]="category" />
+  <input type="number" placeholder="Min price" [(ngModel)]="priceMin" />
+  <input type="number" placeholder="Max price" [(ngModel)]="priceMax" />
+  <button (click)="applyFilter()">Apply</button>
+  <button (click)="clearFilter()">Clear</button>
 
-    <ul>
-      <li *ngFor="let product of facade.products$ | async">
-        {{ product.title }} - ${{ product.price }}
-      </li>
-    </ul>
+  <label>
+    Sort by:
+    <select [(ngModel)]="sortBy" (change)="changeSort(sortBy)">
+      <option value="title">Title</option>
+      <option value="price">Price</option>
+      <option value="id">ID</option>
+    </select>
+  </label>
+  <button (click)="toggleSortDir()">Toggle Dir ({{sortDir}})</button>
 
-    <button (click)="facade.loadProducts()">Reload</button>
+  <label>
+    Page size:
+    <select [(ngModel)]="pageSize$" (change)="setPageSize(+pageSize$)">
+      <option *ngFor="let s of pageSizeOptions" [value]="s">{{s}}</option>
+    </select>
+  </label>
+
+  <label>
+    Live updates:
+    <input type="checkbox" (change)="onLiveUpdatesChange($event)" />
+  </label>
+</div>
+
+<div *ngIf="loading$ | async">Loading…</div>
+<div *ngIf="error$ | async as err">Error: {{err}}</div>
+
+<ul>
+  <li *ngFor="let p of products$ | async">
+    <strong>{{p.title}}</strong>
+    <div>Price: {{p.price}}</div>
+    <div *ngIf="p.inventory !== undefined">Inventory: {{p.inventory}}</div>
+    <div *ngIf="p.lastUpdated">Updated: {{p.lastUpdated | date:'short'}}</div>
+  </li>
+</ul>
+
+<div class="pagination" *ngIf="{ currentPage: page$ | async, totalPages: totalPages$ | async } as pagination">
+  <button (click)="setPage(1)">First</button>
+  <button (click)="setPage(pagination.currentPage! - 1)" [disabled]="pagination.currentPage! <= 1">Prev</button>
+  <span>Page {{pagination.currentPage}} of {{pagination.totalPages}}</span>
+  <button (click)="setPage(pagination.currentPage! + 1)" [disabled]="pagination.currentPage! >= pagination.totalPages!">Next</button>
+  <button (click)="setPage(pagination.totalPages!)">Last</button>
+</div>
