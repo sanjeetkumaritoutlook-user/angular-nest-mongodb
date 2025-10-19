@@ -4,7 +4,8 @@ import { ItemListComponent } from './components/item-list/item-list.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 const routes: Routes = [
   { path: '', component: ItemListComponent },
-  { path: 'dashboard', component: UserDashboardComponent }
+  { path: 'dashboard', component: UserDashboardComponent },
+  { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule) }
 ];
 
 @NgModule({
