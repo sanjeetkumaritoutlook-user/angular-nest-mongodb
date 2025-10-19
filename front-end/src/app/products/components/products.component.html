@@ -1,0 +1,10 @@
+ <div *ngIf="facade.loading$ | async">Loading...</div>
+    <div *ngIf="facade.error$ | async as error">{{ error }}</div>
+
+    <ul>
+      <li *ngFor="let product of facade.products$ | async">
+        {{ product.title }} - ${{ product.price }}
+      </li>
+    </ul>
+
+    <button (click)="facade.loadProducts()">Reload</button>
