@@ -1,0 +1,22 @@
+<div class="dashboard-container">
+  <h2>Enterprise User Dashboard</h2>
+
+  <input 
+    [formControl]="searchControl" 
+    type="text" 
+    placeholder="Search users..." 
+    class="search-box"
+  />
+
+  <div *ngIf="loading" class="loading">Loading users...</div>
+
+  <ul *ngIf="!loading && (filteredUsers$ | async) as users" class="user-list">
+    <li *ngFor="let user of users" class="user-card">
+      <h3>{{ user.name }} ({{ user.username }})</h3>
+      <p>Email: {{ user.email }}</p>
+      <p>Phone: {{ user.phone }}</p>
+      <p>Website: {{ user.website }}</p>
+    </li>
+    <li *ngIf="users.length === 0">No users found.</li>
+  </ul>
+</div>
