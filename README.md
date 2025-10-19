@@ -62,6 +62,7 @@ nest g resource items
 create .env file
 
 MONGODB_URI= connection_string from mongodb atlas
+PORT=3000
 
 ```
 npm install @nestjs/config
